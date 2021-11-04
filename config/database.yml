@@ -22,14 +22,21 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  database: my_value_shopper_backend_development
+  #<<: *default
+  adapter: postgresql
+  encoding: unicode
+  database: my_value_shopper_development
+  username: <%= ENV['USER_NAME'] %>
+  password: <%= ENV['PASSWORD'] %>
+  pool: 5
+  timeout: 5000
+  host: localhost
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: my_value_shopper_backend
+  #username: my_meal_planner
 
   # The password associated with the postgres role (username).
   #password:
@@ -56,8 +63,15 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: my_value_shopper_backend_test
+  #<<: *default
+  adapter: postgresql
+  encoding: unicode
+  database: my_value_shopper_test
+  username: <%= ENV['USER_NAME'] %>
+  password: <%= ENV['PASSWORD'] %>
+  pool: 5
+  timeout: 5000
+  host: localhost
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +95,6 @@ test:
 #
 production:
   <<: *default
-  database: my_value_shopper_backend_production
-  username: my_value_shopper_backend
-  password: <%= ENV['MY_VALUE_SHOPPER_BACKEND_DATABASE_PASSWORD'] %>
+  database: my_value_shopper_production
+  username: my_value_shopper
+  password: <%= ENV['MY_VALUE_SHOPPER_DATABASE_PASSWORD'] %>

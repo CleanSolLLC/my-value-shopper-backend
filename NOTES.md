@@ -11,6 +11,6 @@ Items  belongs_to :list
   description:string
   product_rating
   image_url:string
+  product_url:string
   retailer_rating:string
-  rating:string
   price:float 
