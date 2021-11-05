@@ -1,6 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :list
-
+  
   def self.call_api(string)
  
     require 'net/http'
