@@ -6,10 +6,14 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
-    reults = Item.call_api(params[:search_criteria])
-    item = Item.new(item_params(results))
+  	item = Item.find_or_create_by(ASIN: params[:aisn])
+
+  	if item.nil? 
+	  reults = Item.call_api(params[:search_criteria])
+      item = Item.new(item_params(results)) 
+    end  
    
-    if item.save
+    if item.save || !item.nil?
       render json: ItemSerializer.new(item)  status: :accepted
     else
       render json: {errors: item.errors.full_messages, status: :unprocessable_entity}
