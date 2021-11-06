@@ -1,6 +1,6 @@
 class Api::V1::CategoriesController < ApplicationController
   
-  before_action :set_
+  before_action :set_category, except: [:index]
 
   def index
   	categories = Category.all
@@ -8,22 +8,28 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   def create
-    category = Category.new(category_params)
-    #byebug
-    if category.save
-      render json: category
+    if @category.nil?
+      @category = Category.new(category_params)
+        if category.save
+          render json: category
+        else
+          render json: {errors: category.errors.full_messages, status: :unprocessable_entity}
+        end
     else
-      render json: {errors: category.errors.full_messages, status: :unprocessable_entity}
+      @category
     end
   end
 
-  def delete
-    category = Category.find_by(id: params[:id])
+  def show
+    category_items = @category.items
+    render json: CategorySerializer.new(category_items) 
+  end
 
-    if category.nil?
+  def delete
+    if @category.nil?
       render json: {error: "Category Not Found", status: :unprocessable_entity}
     else
-      category.destroy
+      @category.destroy
     end    
 
   end
@@ -33,6 +39,10 @@ class Api::V1::CategoriesController < ApplicationController
     def category_params
       params.require(:category).permit(:recipe_type, :query, :cuisine, :diet, :intolerances, :exclude)
     end	
-end
+
+    def set_category
+      @category = Category.find(params[:id])
+    end
+  end
 
 end

@@ -1,15 +1,17 @@
 class Api::V1::ItemsController < ApplicationController
+
+  before_action :set_category 
   
   def index
-  	items = Item.all
-    render json: ItemSerializer.new(items) 
+    items = @category.items
+    render json: CategorySerializer.new(items) 
   end
 
   def create
-  	item = Item.find_or_create_by(ASIN: params[:aisn])
+  	item = @category.items.find_or_initialize_by(ASIN: params[:aisn])
 
   	if item.nil? 
-	  reults = Item.call_api(params[:search_criteria])
+	  results = item.call_api(params[:search_criteria])
       item = Item.new(item_params(results)) 
     end  
    
@@ -20,9 +22,14 @@ class Api::V1::ItemsController < ApplicationController
     end
   end
 
+  def show
+    item = @category.items.find_by(id: params[:id])
+    render json: ItemSerializer.new(item)  status: :accepted
+  end
+
 
   def destroy
-    item = Item.find_by(id: params[:id])
+    item = @category.items.find_by(id: params[:id])
 
     if item.nil?
       render json: {error: "Item Not Found", status: :unprocessable_entity}
@@ -37,5 +44,9 @@ class Api::V1::ItemsController < ApplicationController
   private
     def item_params(results)
       results.require(:item).permit(:product_title, :product_detail_url, :app_sale_price, :currency, :ASIN, :Customer_Reviews, :Best_Sellers_Rank, :available_quantity, :list_id, list_id: [] )
-    end	  	
+    end
+
+    def set_category
+      @category = Category.find(params[:id])
+    end    	  	
 end
