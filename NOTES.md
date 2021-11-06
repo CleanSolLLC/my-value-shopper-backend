@@ -1,19 +1,20 @@
 Models
 
-List - has_many :items 
+Category - has_many :items 
   name:string
 
 
 
-Items  belongs_to :list 
-  list_id:integer,
-  name:string,
-  description:string
-  product_rating
-  image_url:string
-  product_url:string
-  retailer_rating:string
-  price:float 
+Items  belongs_to :category
+bigint "category_id"
+string "product_title"
+string "product_detail_url"
+string "app_sale_price"
+string "currency"
+string "ASIN"
+string "Customer_Reviews"
+string "Best_Sellers_Rank"
+string "available_quantity"
 
 Amazon Api 
 Searching by Product

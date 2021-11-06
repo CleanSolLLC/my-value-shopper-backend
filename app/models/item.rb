@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  belongs_to :list
+  belongs_to :category
   
   def self.call_api(string)
  
