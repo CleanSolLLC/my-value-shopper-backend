@@ -1,10 +1,10 @@
 class Api::V1::ItemsController < ApplicationController
 
-  before_action :set_category 
+  before_action :set_category, only: [:index, :create, :show, :delete]
   
   def index
     items = @category.items
-    render json: CategorySerializer.new(items) 
+    render json: items #ItemSerializer.new(items) 
   end
 
   def create
@@ -16,20 +16,20 @@ class Api::V1::ItemsController < ApplicationController
     end  
    
     if item.save || !item.nil?
-      render json: ItemSerializer.new(item)  status: :accepted
+      render json: item  #status: :accepted
     else
       render json: {errors: item.errors.full_messages, status: :unprocessable_entity}
     end
   end
 
   def show
-    item = @category.items.find_by(id: params[:id])
-    render json: ItemSerializer.new(item)  status: :accepted
+    item = @category.items.find(params[:id])
+    render json: item #ItemSerializer.new(item) 
   end
 
 
   def destroy
-    item = @category.items.find_by(id: params[:id])
+    item = @category.items.find(params[:id])
 
     if item.nil?
       render json: {error: "Item Not Found", status: :unprocessable_entity}
@@ -47,6 +47,6 @@ class Api::V1::ItemsController < ApplicationController
     end
 
     def set_category
-      @category = Category.find(params[:id])
+      @category = Category.find(params[:category_id])
     end    	  	
 end

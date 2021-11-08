@@ -1,17 +1,17 @@
 class Api::V1::CategoriesController < ApplicationController
   
-  before_action :set_category, except: [:index]
+  before_action :set_category, only: [:create, :show, :delete]
 
   def index
   	categories = Category.all
-    render json: CategorySerializer.new(categories) 
+    render json: categories #\CategorySerializer.new(categories) 
   end
 
   def create
     if @category.nil?
       @category = Category.new(category_params)
-        if category.save
-          render json: category
+        if @category.save
+          render json: @category
         else
           render json: {errors: category.errors.full_messages, status: :unprocessable_entity}
         end
@@ -22,7 +22,7 @@ class Api::V1::CategoriesController < ApplicationController
 
   def show
     category_items = @category.items
-    render json: CategorySerializer.new(category_items) 
+    render json: category_items #CategorySerializer.new(category_items) 
   end
 
   def delete
@@ -31,7 +31,6 @@ class Api::V1::CategoriesController < ApplicationController
     else
       @category.destroy
     end    
-
   end
 
 
@@ -41,8 +40,7 @@ class Api::V1::CategoriesController < ApplicationController
     end	
 
     def set_category
-      @category = Category.find(params[:id])
+      @category = Category.find(params[:category_id])
     end
-  end
 
 end
