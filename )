@@ -1,0 +1,14 @@
+
+[1mFrom:[0m /mnt/c/users/mamar/dev/flatiron/labs/canvas/react/project/my-value-shopper/my-value-shopper-backend/app/controllers/api/v1/items_controller.rb:11 Api::V1::ItemsController#index:
+
+    [1;34m10[0m:   [32mdef[0m [1;34mindex[0m
+ => [1;34m11[0m:     binding.pry
+    [1;34m12[0m:   	item = @category.items.find_or_initialize_by([35mASIN[0m: params[[33m:aisn[0m])
+    [1;34m13[0m: 	  results = item.call_api(params[[33m:aisn[0m])
+    [1;34m14[0m:     [1;34m# item = Item.create(item_params(results)) [0m
+    [1;34m15[0m:     [1;34m#   render json: item  #status: :accepted[0m
+    [1;34m16[0m:     [1;34m# else[0m
+    [1;34m17[0m:     [1;34m#   render json: {errors: item.errors.full_messages, status: :unprocessable_entity}[0m
+    [1;34m18[0m:     [1;34m# end[0m
+    [1;34m19[0m:   [32mend[0m
+

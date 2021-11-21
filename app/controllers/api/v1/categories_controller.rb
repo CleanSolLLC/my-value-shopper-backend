@@ -4,7 +4,7 @@ class Api::V1::CategoriesController < ApplicationController
 
   def index
   	categories = Category.all
-    render json: categories #\CategorySerializer.new(categories) 
+    render json: categories
   end
 
   def create
@@ -22,7 +22,7 @@ class Api::V1::CategoriesController < ApplicationController
 
   def show
     category_items = @category.items
-    render json: category_items #CategorySerializer.new(category_items) 
+    render json: category_items 
   end
 
   def delete
@@ -36,11 +36,16 @@ class Api::V1::CategoriesController < ApplicationController
 
   private
     def category_params
-      params.require(:category).permit(:recipe_type, :query, :cuisine, :diet, :intolerances, :exclude)
+      params.require(:category).permit(:name)
     end	
 
     def set_category
       @category = Category.find(params[:category_id])
+      
+      if @category.nil? 
+        redirect_to controller: :categories, action: :create, method: :post
+      end
+            
     end
 
 end

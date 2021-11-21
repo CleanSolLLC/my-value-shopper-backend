@@ -94,3 +94,22 @@ Output
 "reviews_history":[]0 items
 "__v":0
 }
+
+
+Must drill down in hash to get these values
+product_details["ASIN"]
+product_details["Customer_Reviews"]
+product_details["Best_Sellers_Rank"]
+
+ASIN: "B09193Z3B3"
+
+body = JSON.parse(response.read_body)
+
+body["product_title"]
+body["product_detail_url"]
+body["currency"]
+body["app_sale_price"]
+body["available_quantity"]
+body["product_details"]["ASIN"]
+body["product_details"]["Customer_Reviews"]
+body["product_details"]["Best_Sellers_Rank"]
