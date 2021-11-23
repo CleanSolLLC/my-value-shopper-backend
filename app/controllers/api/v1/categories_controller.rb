@@ -1,35 +1,34 @@
 class Api::V1::CategoriesController < ApplicationController
   
-  before_action :set_category, only: [:create, :show, :delete]
+  before_action :set_user, only: [:index, :create, :show, :delete]
 
   def index
-  	categories = Category.all
-    render json: categories
+  	user_categories = @user.categories
+    render json: user_categories
   end
 
   def create
-    if @category.nil?
-      @category = Category.new(category_params)
-        if @category.save
-          render json: @category
-        else
-          render json: {errors: category.errors.full_messages, status: :unprocessable_entity}
-        end
-    else
-      @category
-    end
+    category = Category.new(category_params)
+      if category.save
+         @user.categories << category
+         render json: @user.categories.last
+      else
+        render json: {errors: category.errors.full_messages, status: :unprocessable_entity}
+      end
   end
 
   def show
-    category_items = @category.items
-    render json: category_items 
+    user_category = @user.categories.where(id: params[:id])
+    render json: user_category
   end
 
   def delete
-    if @category.nil?
+    user_category = @user.categories.where(id: params[:id])
+    if user_category.nil?
       render json: {error: "Category Not Found", status: :unprocessable_entity}
     else
-      @category.destroy
+      user_category.destroy
+      render json: user_category
     end    
   end
 
@@ -39,10 +38,9 @@ class Api::V1::CategoriesController < ApplicationController
       params.require(:category).permit(:name)
     end	
 
-    def set_category
-      @category = Category.find(params[:category_id])
-      
-      if @category.nil? 
+    def set_user
+      @user = User.find(params[:user_id])
+      if @user.nil? 
         redirect_to controller: :categories, action: :create, method: :post
       end
             

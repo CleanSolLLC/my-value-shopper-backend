@@ -1,33 +1,32 @@
 class Api::V1::ItemsController < ApplicationController
 
-  before_action :set_category, only: [:index, :create, :show, :delete]
+  before_action :set_user, only: [:index, :create, :show, :delete]
   
   def index
-    items = @category.items
-    render json: items
+    user_category_items = @user.categories.find(params[:category_id]).items
+    render json: user_category_items
   end
 
   def create
-    category = @category
+    user = @user
 	  results = Item.call_api(params[:aisn])
-    parsed_data = Item.parse_data(results, category)
+    parsed_data = Item.parse_data(results, user)
     redirect_to :index
   end
 
   def show
-    item = @category.items.find(params[:id])
-    render json: item
+    user_category_item = @user.categories.find(params[:category_id]).items.find(params[:id])
+    render json: user_category_item
   end
 
 
-  def destroy
-    item = @category.items.find(params[:id])
-
-    if item.nil?
+  def delete
+    user_category_item = @user.categories.find(params[:category_id]).items.find(params[:id])
+    if user_category_item.nil?
       render json: {error: "Item Not Found", status: :unprocessable_entity}
     else
-      item.destroy
-      render json: item
+      user_category_item.destroy
+      render json: user_category_item
     end    
 
   end
@@ -35,7 +34,10 @@ class Api::V1::ItemsController < ApplicationController
 
   private
 
-    def set_category
-      @category = Category.find(params[:category_id])
-    end    	  	
+  def set_user
+    @user = User.find(params[:user_id])
+    if @user.nil? 
+      redirect_to controller: :categories, action: :create, method: :post
+    end 
+  end	  	
 end

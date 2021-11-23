@@ -25,7 +25,7 @@ class Item < ApplicationRecord
       JSON.parse(response.read_body)
   end
 
-  def self.parse_data(data, category)
+  def self.parse_data(data, user)
     item = Item.new
     item.product_title = data["product_title"]
     item.product_detail_url = data["product_detail_url"]
@@ -36,6 +36,6 @@ class Item < ApplicationRecord
     item.Customer_Reviews = data["product_details"]["Customer_Reviews"]
     item.Best_Sellers_Rank = data["product_details"]["Best_Sellers_Rank"] 
   
-    category.items << item
+    user.categories.items << item
   end
 end
