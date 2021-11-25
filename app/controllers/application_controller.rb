@@ -1,10 +1,7 @@
 class ApplicationController < ActionController::API
 
   def current_user
-    user = User.find(params[:id])
-    if user.id == session[:user_id]
-      current_user
-    end  
+    user = User.find(session[:user_id])
   end
   
   def logged_in?
