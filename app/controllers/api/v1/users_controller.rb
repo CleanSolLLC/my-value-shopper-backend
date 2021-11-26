@@ -41,7 +41,7 @@ class Api::V1::UsersController < ApplicationController
     end	
 
     def set_user
-      @user = User.find(params[:User_id])
+      @user = User.find(params[:id])
       
       if @user.nil? 
         redirect_to controller: :users, action: :create, method: :post
