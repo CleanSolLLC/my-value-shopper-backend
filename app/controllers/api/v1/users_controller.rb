@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
-
-  before_action :set_user, only: [:create, :show, :delete]
+  skip_before_action :authorized, only: [:create]
+  #before_action :set_user, only: [:show, :delete]
 
   def index
   	users = User.all
@@ -8,15 +8,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    if @user.nil?
-      @user = User.new(User_params)
-        if @user.save
-          render json: @user
-        else
-          render json: {errors: User.errors.full_messages, status: :unprocessable_entity}
-        end
+    @user = User.create(user_params)
+    if @user.valid?
+      @token = encode_token(user_id: @user.id)
+      render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
     else
-      @user
+      render json: { error: 'failed to create user' }, status: :unprocessable_entity
     end
   end
 
@@ -36,17 +33,12 @@ class Api::V1::UsersController < ApplicationController
 
 
   private
-    def User_params
-      params.require(:User).permit(:username, :email)
-    end	
+    def user_params
+      params.require(:user).permit(:username, :email, :password)
+    end
 
     def set_user
-      @user = User.find(params[:id])
-      
-      if @user.nil? 
-        redirect_to controller: :users, action: :create, method: :post
-      end
-            
+      @user = User.find(params[:id])            
     end
 
 end

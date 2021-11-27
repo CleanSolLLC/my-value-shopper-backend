@@ -50,3 +50,5 @@ gem "active_model_serializers", "~> 0.10.12"
 gem "railties", "~> 6.1"
 
 gem "bcrypt", "~> 3.1"
+
+gem "jwt", "~> 2.3"

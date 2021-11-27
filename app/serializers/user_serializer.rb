@@ -1,4 +1,4 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :email
-  has_many :categories
+  attributes :username, :email
+  #has_many :categories
 end
