@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_23_191549) do
+ActiveRecord::Schema.define(version: 2021_11_30_174954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,11 +20,12 @@ ActiveRecord::Schema.define(version: 2021_11_23_191549) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
+    t.bigint "item_id"
+    t.index ["item_id"], name: "index_categories_on_item_id"
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
-    t.bigint "category_id", null: false
     t.string "product_title"
     t.string "product_detail_url"
     t.string "currency"
@@ -32,8 +33,7 @@ ActiveRecord::Schema.define(version: 2021_11_23_191549) do
     t.string "Customer_Reviews"
     t.string "Best_Sellers_Rank"
     t.float "app_sale_price"
-    t.float "available_quantity"
-    t.index ["category_id"], name: "index_items_on_category_id"
+    t.integer "available_quantity"
   end
 
   create_table "users", force: :cascade do |t|
@@ -44,6 +44,6 @@ ActiveRecord::Schema.define(version: 2021_11_23_191549) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "categories", "items"
   add_foreign_key "categories", "users"
-  add_foreign_key "items", "categories"
 end

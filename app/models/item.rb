@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
-  belongs_to :category
+  has_many :categories
+  has_many :users, through: :categories
   
   def self.call_api(string)
     require 'net/http'
