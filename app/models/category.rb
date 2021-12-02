@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
   belongs_to :user
-  belongs_to :item
+  has_many :items
   validates :name, uniqueness: true
 end
