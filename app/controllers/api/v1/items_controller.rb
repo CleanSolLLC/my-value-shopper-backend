@@ -1,10 +1,10 @@
 class Api::V1::ItemsController < ApplicationController
 
-  before_action :set_user, only: [:index, :create, :show, :delete]
+  #before_action :set_user, only: [:index, :create, :show, :delete]
   
   def index
-    user_category_items = @user.categories.find(params[:category_id]).items
-    render json: user_category_items
+    items = current_user.items
+    render json: items
   end
 
   def create

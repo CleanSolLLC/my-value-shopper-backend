@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+  belongs_to :user
   belongs_to :category 
   def self.call_api(string)
     require 'net/http'
