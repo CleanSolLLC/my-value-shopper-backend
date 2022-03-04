@@ -108,8 +108,16 @@ body = JSON.parse(response.read_body)
 body["product_title"]
 body["product_detail_url"]
 body["currency"]
+body["original_price"]
 body["app_sale_price"]
+body["discount"]
 body["available_quantity"]
+body["product_main_image_url"]
 body["product_details"]["ASIN"]
 body["product_details"]["Customer_Reviews"]
 body["product_details"]["Best_Sellers_Rank"]
+
+******************
+There are 2 keys if no item found
+"noResults": false
+"message":  "" 
