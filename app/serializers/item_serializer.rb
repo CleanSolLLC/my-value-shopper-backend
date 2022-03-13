@@ -1,4 +1,4 @@
 class ItemSerializer < ActiveModel::Serializer
-  attributes :id, :product_title, :product_detail_url, :app_sale_price, :currency, :ASIN, :Customer_Reviews, :Best_Sellers_Rank, :available_quantity, :category_id
+  attributes :id, :product_title, :product_detail_url, :app_sale_price, :currency, :ASIN, :Customer_Reviews, :available_quantity, :category_id, user_id, product_main_image_url, original_price, discount
   belongs_to :category, serializer: CategorySerializer 
 end

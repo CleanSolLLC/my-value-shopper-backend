@@ -4,8 +4,8 @@ Rails.application.routes.draw do
       post '/login', to: 'auth#create'
       get '/profile', to: 'users#profile'
       resources :users, only: [:create] 
-      resources :categories
-      resources :items
+      resources :categories, only: [:create]
+      resources :items, only: [:create]
     end
   end
 end

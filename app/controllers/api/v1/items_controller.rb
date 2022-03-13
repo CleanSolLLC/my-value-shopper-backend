@@ -1,5 +1,5 @@
 class Api::V1::ItemsController < ApplicationController
-
+  #skip_before_action :authorized, only: [:create]
   #before_action :set_user, only: [:index, :create, :show, :delete]
   
   def index
@@ -8,8 +8,9 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
+    binding.pry
     user = @user
-	  results = Item.call_api(params[:aisn])
+	  results = Item.call_api(params[item_params])
     parsed_data = Item.parse_data(results, user)
     redirect_to :index
   end
@@ -34,10 +35,14 @@ class Api::V1::ItemsController < ApplicationController
 
   private
 
+  def item_params
+    params.require(:item).permit(:ASIN, :category_id=[])
+  end
+
   def set_user
     @user = User.find(params[:user_id])
     if @user.nil? 
-      redirect_to controller: :categories, action: :create, method: :post
+      redirect_to controller: :items, action: :create, method: :post
     end 
   end	  	
 end
