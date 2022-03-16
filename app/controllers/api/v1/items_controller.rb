@@ -4,7 +4,7 @@ class Api::V1::ItemsController < ApplicationController
   
   def index
     #Category.find(params[:user][:value]).name
-    items = current_user.items
+    items = assign_category_name
     render json: items
   end
 
@@ -43,5 +43,5 @@ class Api::V1::ItemsController < ApplicationController
     if @user.nil? 
       redirect_to controller: :items, action: :create, method: :post
     end 
-  end	  	
+  end
 end

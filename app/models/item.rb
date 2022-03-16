@@ -1,6 +1,8 @@
 class Item < ApplicationRecord
   belongs_to :user
   belongs_to :category 
+
+  attr_accessor :category_name
   
   def self.call_api(string)
     require 'net/http'
@@ -27,7 +29,6 @@ class Item < ApplicationRecord
   end
 
   def self.parse_data(data, user, category_id)
-    binding.pry
     item = Item.new
     item.product_title = data["product_title"]
     item.product_detail_url = data["product_detail_url"]

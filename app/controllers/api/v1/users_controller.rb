@@ -3,6 +3,7 @@ class Api::V1::UsersController < ApplicationController
   #before_action :set_user, only: [:show, :delete]
 
   def profile
+    assign_category_name
     render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
 
