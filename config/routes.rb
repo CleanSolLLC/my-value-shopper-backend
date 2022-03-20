@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       get '/profile', to: 'users#profile'
       resources :users, only: [:create] 
       resources :categories, only: [:create]
-      resources :items, only: [:create]
+      resources :items, only: [:create, :update]
     end
   end
 end

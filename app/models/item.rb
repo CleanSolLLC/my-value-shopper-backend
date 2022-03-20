@@ -44,4 +44,9 @@ class Item < ApplicationRecord
     item.discount = data["discount"]
     user.items << item
   end
+
+  def self.update_price(item, user, coupon_amt)
+    new_sale_price = (item.app_sale_price - coupon_amt).ceil(2)
+    item.update(app_sale_price: new_sale_price, discount: coupon_amt)
+  end
 end
