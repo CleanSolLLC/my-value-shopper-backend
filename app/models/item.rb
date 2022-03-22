@@ -35,7 +35,7 @@ class Item < ApplicationRecord
     item.currency = data["currency"]
     item.app_sale_price = data["app_sale_price"]
     item.available_quantity = data["available_quantity"]
-    item.ASIN = data["product_details"]["_ASIN_"]
+    item.ASIN = data["product_id"]
     item.Customer_Reviews = data["product_details"]["Customer_Reviews"]
     item.Best_Sellers_Rank = data["product_details"]["Best_Sellers_Rank"] 
     item.category_id = category_id
