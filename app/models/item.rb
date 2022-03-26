@@ -36,17 +36,11 @@ class Item < ApplicationRecord
     item.app_sale_price = data["app_sale_price"]
     item.available_quantity = data["available_quantity"]
     item.ASIN = data["product_id"]
-    item.Customer_Reviews = data["product_details"]["Customer_Reviews"]
-    item.Best_Sellers_Rank = data["product_details"]["Best_Sellers_Rank"] 
+    item.Customer_Reviews = data["product_details"]["Customer_Reviews"] if data.has_key?("Customer_Reviews")
     item.category_id = category_id
     item.product_main_image_url = data["product_main_image_url"]
     item.original_price = data["original_price"]
     item.discount = data["discount"]
     user.items << item
-  end
-
-  def self.update_price(item, user, coupon_amt)
-    new_sale_price = (item.app_sale_price - coupon_amt).ceil(2)
-    item.update(app_sale_price: new_sale_price, discount: coupon_amt)
   end
 end

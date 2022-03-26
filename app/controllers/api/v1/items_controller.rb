@@ -15,7 +15,12 @@ class Api::V1::ItemsController < ApplicationController
   def create
 	  results = Item.call_api(item_params["ASIN"])
     category_id = item_params["category_id"].to_i
-    parsed_data = Item.parse_data(results, current_user, category_id)
+    item = Item.parse_data(results, current_user, category_id)
+    if results 
+      render json: item
+    else
+      render json: {error: "Item not found", status: :unprocessable_entity}
+    end
   end
 
   def delete
