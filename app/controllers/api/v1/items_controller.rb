@@ -23,15 +23,14 @@ class Api::V1::ItemsController < ApplicationController
     end
   end
 
-  def delete
-    user_category_item = @user.categories.find(params[:category_id]).items.find(params[:id])
-    if user_category_item.nil?
-      render json: {error: "Item Not Found", status: :unprocessable_entity}
+  def destroy
+    item = @user.items.find(params[:id])
+    if item
+      item.delete
+      render json: {message: "Item deleted", status: :success}
     else
-      user_category_item.destroy
-      render json: user_category_item
-    end    
-
+      render json: {error: "Item Not Found", status: :unprocessable_entity}
+    end
   end
 
 
