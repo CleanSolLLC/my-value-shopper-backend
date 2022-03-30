@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  #skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create]
   #before_action :set_user, only: [:show, :delete]
 
   def profile
@@ -12,7 +12,7 @@ class Api::V1::UsersController < ApplicationController
     render json: users
   end
 
-  def create
+  def create   
     @user = User.create(user_params)
     if @user.valid?
       @token = encode_token(user_id: @user.id)
