@@ -1,21 +1,25 @@
 # My-Value-Shopper-Backend
 
-PROVIDE DETAILED DESCRIPTION
+My My-Value-Shopper-Backend is the back end (server) of a SPA (single page application).
+Please read https://github.com/CleanSolLLC/my-value-shopper-backend#readme to learn more about the application. 
 
-## Run Program 
-If you want to run the appplication remotely the front end uses GitHub Pages and the back end uses Heroku. The link to the application may be found here XXXXXXXXXXXXXXXXXX.  
+## 
+At this time the application is not hosted. But you can fork and clone down the repositories. Please check back regarding hosting status! 
 
+## Prerequisites and Installation
 
-## Prerequisites
+Before you begin,  ensure you have met the following requirements:
+* You have forked and cloned down my-value-shopper-backend https://github.com/CleanSolLLC/my-value-shopper-backend.git
+* You have forked and cloned down my-value-shopper-backend https://github.com/CleanSolLLC/my-value-shopper-backend.git
+* The application uses a Postgresql database
+* Set up a free Rapid API account https://rapidapi.com
+* Go to https://rapidapi.com/b2g.corporation/api/amazon24/ to set up your free key. Note that the "freemium package" offers a hard limit of 200 free queries per month. If you require additional queries simply upgrade your plan.
+* create a .env file in your root directory
 
-Before you begin, ensure you have met the following requirements:
-* You have forked and cloned down my-value-shopper-frontend https://github.com/CleanSolLLC/my-value-shopper-frontend.git
+AMAZON_HOST = 'amazon24.p.rapidapi.com'
+AMAZON_KEY = 'add your key here'
 
-## Installing My Value Shopper Backend>
-
-To install <my-value-shopper-backend>, follow these steps:
-
-fork and clone down the repo my-value-shopper-frontend to your local machine. This will provide you with the index.html files as well as the Javascript files for the client side of the application.
+Run rails s to launch the server. The server will be running on http://localhost:3001
 
 ## Contributing to <my-value-shopper-backend>
 
@@ -30,7 +34,6 @@ To contribute to <my-value-shopper-backend>, follow these steps:
 Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
 
-## Contact
+### Contact
 
 If you want to contact me you can reach me at <mamark90@gmail.com>.
-
