@@ -14,9 +14,10 @@ class Api::V1::ItemsController < ApplicationController
 
   def create
 	  results = Item.call_api(item_params["ASIN"])
-    category_id = item_params["category_id"].to_i
-    item = Item.parse_data(results, current_user, category_id)
-    if results 
+    if !results["noResults"]
+      category_id = item_params["category_id"].to_i
+      category_id = 11 if category_id == 0 #11=> other 
+      item = Item.parse_data(results, current_user, category_id)
       render json: item
     else
       render json: {error: "Item not found", status: :unprocessable_entity}
